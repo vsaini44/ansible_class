@@ -1,0 +1,26 @@
+- name: Enable EPEL on CentOS Stream 9
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure dnf-plugins-core is installed
+      ansible.builtin.dnf:
+        name: dnf-plugins-core
+        state: present
+
+    - name: Enable CRB repository
+      ansible.builtin.command:
+        cmd: dnf config-manager --set-enabled crb
+      register: crb_result
+      # This prevents Ansible from falsely reporting a "change" if CRB was already active
+      changed_when: crb_result.rc == 0
+
+    - name: Install EPEL release package
+      ansible.builtin.dnf:
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm"
+        state: present
+        disable_gpg_check: true
+
+    - name: Verify EPEL is enabled
+      ansible.builtin.command:
+        cmd: dnf repolist
+      changed_when: false
