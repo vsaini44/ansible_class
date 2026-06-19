@@ -4,5 +4,5 @@
   tasks:                                     
     - name:                                  
       debug:                                 
-        msg: "hi there this is my first play to be executed on AAP with project integration"
+        msg: "hi {{ usern }} this is my first play to be executed on AAP with project integration"
                                                 
