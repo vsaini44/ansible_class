@@ -1,10 +1,8 @@
 - name: my first play                        
   hosts: all                                 
-  become: yes                                
-  remote_user: root                          
+  become: yes                                                     
   tasks:                                     
     - name:                                  
       debug:                                 
-        msg: "hi there this is my first play"
-        
-~                                             
+        msg: "hi there this is my first play to be executed on AAP with project integration"
+                                                
